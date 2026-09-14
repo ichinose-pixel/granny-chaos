@@ -3,7 +3,7 @@ const originalLabel = start.innerHTML;
 start.disabled = true;
 start.textContent = '街を準備しています…';
 try {
-  await import('./game.js');
+  await import('./game.js?v=diagnostic-2');
   start.innerHTML = originalLabel;
   start.disabled = false;
 } catch (error) {
