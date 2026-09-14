@@ -28,9 +28,9 @@ export class DiagnosticRenderer {
     if(active)arrow(s.pos.x,s.pos.z,sin*s.iy-cos*s.ix,cos*s.iy+sin*s.ix,'#60e6ff',72);
     if(s.vehicle?.speed>.08)arrow(s.pos.x,s.pos.z,s.vehicle.vx,s.vehicle.vz,'#ff90d2',Math.min(95,20+s.vehicle.speed*4));
     if(active&&!this.gesture)this.gesture={distance:0,along:0,side:0,start:s.time};
-    if(this.last&&s.time>this.last.time){const dx=s.pos.x-this.last.x,dz=s.pos.z-this.last.z,d=vector(dx,dz),n=Math.hypot(this.last.ix,this.last.iy);if(this.gesture&&n>.12){this.gesture.distance+=Math.hypot(dx,dz);this.gesture.along+=(d[0]*this.last.ix-d[1]*this.last.iy)/n;this.gesture.side+=Math.abs(d[0]*this.last.iy+d[1]*this.last.ix)/n;}}
-    if(!active&&this.gesture){this.release={...this.gesture,x:s.pos.x,z:s.pos.z,time:s.time};this.gesture=null;}
-    if(this.release&&(!s.vehicle||s.vehicle.speed===0)){const r=this.release;const result=`操作 ${r.distance.toFixed(2)}m / 入力方向 ${r.along.toFixed(2)}m / 横ずれ ${r.side.toFixed(2)}m\n停止 ${(s.time-r.time).toFixed(2)}秒 / 停止距離 ${Math.hypot(s.pos.x-r.x,s.pos.z-r.z).toFixed(2)}m`;document.getElementById('diag-result').textContent=result;this.results.push(result);this.release=null;}
+    if(this.last&&s.time>this.last.time){const dx=s.pos.x-this.last.x,dz=s.pos.z-this.last.z,d=vector(dx,dz),n=Math.hypot(this.last.ix,this.last.iy);if(active&&this.gesture&&n>.12){this.gesture.distance+=Math.hypot(dx,dz);this.gesture.along+=(d[0]*this.last.ix-d[1]*this.last.iy)/n;this.gesture.side+=Math.abs(d[0]*this.last.iy+d[1]*this.last.ix)/n;}}
+    if(!active&&this.gesture){this.release={...this.gesture,x:this.last?.x??s.pos.x,z:this.last?.z??s.pos.z,time:this.last?.time??s.time};this.gesture=null;}
+    if(this.release&&(!s.vehicle||s.vehicle.speed===0)){const r=this.release;const result=`操作 ${r.distance.toFixed(2)}m / 入力方向 ${r.along.toFixed(2)}m / 横ずれ ${r.side.toFixed(2)}m\n停止(ゲーム内) ${(s.time-r.time).toFixed(2)}秒 / 停止距離 ${Math.hypot(s.pos.x-r.x,s.pos.z-r.z).toFixed(2)}m`;document.getElementById('diag-result').textContent=result;this.results.push(result);this.release=null;}
     document.getElementById('diag-live').textContent=`${s.vehicle?(s.vehicle.type===0?'シニアカー':'乗用車'):'徒歩'} | 入力 ${s.ix.toFixed(2)},${s.iy.toFixed(2)} | 速度 ${(s.vehicle?.speed||0).toFixed(2)}m/s\n位置 ${s.pos.x.toFixed(2)},${s.pos.z.toFixed(2)} | カメラ ${(yaw*180/Math.PI).toFixed(0)}° | 衝突 ${s.hits}\n白:車の正面 水色:入力 ピンク:移動`;
     this.last={x:s.pos.x,z:s.pos.z,time:s.time,ix:s.ix,iy:s.iy};
   }

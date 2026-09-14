@@ -1,4 +1,4 @@
-import {DiagnosticRenderer} from './diagnostic.js';
+import {DiagnosticRenderer} from './diagnostic.js?v=3';
 const diagnosticMode=typeof location!=='undefined'&&new URLSearchParams(location.search).get('diagnostic')==='1';
 let diagnosticHits=0;
 import * as T from './three.module.js';

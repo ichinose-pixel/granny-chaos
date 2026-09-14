@@ -30,3 +30,6 @@ Vehicles now use screen-relative directional input from the actual camera headin
 Serve the repository with `python3 -m http.server 8080` and open http://localhost:8080/dist/. Run `npm test` with Node.js 22 or later; no npm dependencies are required. GitHub Actions runs the same logic checks on push and pull requests. These mocked-renderer tests do not verify browser graphics or touch ergonomics.
 
 For GitHub Pages, select Settings → Pages → Deploy from a branch → main / (root). The root page opens dist/.
+
+## Canvas diagnostic mode
+Open `dist/?diagnostic=1` to test the existing game logic without WebGL. The joystick is shown on desktop too. White arrow = vehicle front; cyan = requested direction; pink = velocity. The panel exposes speed, coordinates, camera heading, collision count and recent input/braking measurements. Durations are game time, not wall-clock latency. Setup buttons position the player near a vehicle or on a straight road; use the normal ride button afterward. Production 3D rendering remains the default. See VALIDATION.md for observed results and limits.
