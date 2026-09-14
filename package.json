@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/drive.mjs && node tests/game.mjs && DIAGNOSTIC_TEST=1 node tests/game.mjs"
+    "test": "node tests/drive.mjs && node tests/game.mjs && DIAGNOSTIC_TEST=1 node tests/game.mjs && node tests/navigation.mjs"
   }
 }
